@@ -29,6 +29,9 @@ public class Teste_BBSort {
             for (int j = 0; j < i; j++) {
                 if (vetor[j] > vetor[j + 1]) {
                     swap(vetor, j, j + 1);
+                    for (int k : vetor) {
+                        System.out.print(vetor[j] + " ");
+                    }
                 }
             }
         }
