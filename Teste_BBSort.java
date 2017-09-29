@@ -1,5 +1,6 @@
 package teste_bbsort;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -17,22 +18,24 @@ public class Teste_BBSort {
 
         int[] vetorEmbaralhado = v.clone();
         long tempoInicial = System.nanoTime();
-        //TODO Chamada para o método de ordenação
+        bubbleSort(vetorEmbaralhado);
+        System.out.println(Arrays.toString(vetorEmbaralhado));
         long tempoFinal = System.nanoTime();
         System.out.println("Bubble iterativo: " + (tempoFinal - tempoInicial) + 
         "ns" + " - " + TimeUnit.MILLISECONDS.convert((tempoFinal - tempoInicial)
                 , TimeUnit.NANOSECONDS) + "ms");
     }
 
-    void bubbleSort(int[] vetor) {
-        for (int i = vetor.length - 1; i >= 0; i--) {
-            for (int j = 0; j < i; j++) {
+    static void bubbleSort(int[] vetor) {
+        for (int i = 0; i < vetor.length; i++) {
+            for (int j = 0; j < vetor.length-1; j++) {
                 if (vetor[j] > vetor[j + 1]) {
                     swap(vetor, j, j + 1);
                     for (int k : vetor) {
-                        System.out.print(vetor[j] + " ");
+                        System.out.print(k + "-");
                     }
                 }
+                System.out.println(" ");
             }
         }
     }
@@ -43,15 +46,12 @@ public class Teste_BBSort {
         while (elementosRestantes > 0) {
             int k = random.nextInt(elementosRestantes);
 
-            int temp = embaralhado[k];
-            embaralhado[k] = embaralhado[elementosRestantes - 1];
-            embaralhado[elementosRestantes - 1] = temp;
-
             elementosRestantes--;
+            swap(embaralhado, elementosRestantes, k);
         }
     }
 
-    void swap(int[] vetor, int x, int y) {
+    static void swap(int[] vetor, int x, int y) {
         int temp = vetor[x];
         vetor[x] = vetor[y];
         vetor[y] = temp;
