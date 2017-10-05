@@ -1,34 +1,40 @@
-/*
-Encontrar o valor do maior elemento de um vetor de inteiros de tamanho n 
-(informado pelo usuário).
-*/
-package POTA01;
+package POTA03;
+
+import javax.swing.JOptionPane;
 
 public class Q04 {
 
     public static void main(String[] args) {
-        int vetor[] = {5, 98, 0, -4, 86, 35, 6, 87, 43, 65, 35};
-        int tamanho = vetor.length;
-        int maior = maior(vetor, tamanho - 1);
-        System.out.println("O maior valor do vetor é " + maior);
+        int n = Integer.parseInt(JOptionPane.showInputDialog("Quantos elementos no máximo terá o vetor?"));
+        int vetor[] = new int[n];
+        int fim = -1;
+        int elemento;
+        do {
+            elemento = Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+            fim++;
+            vetor[fim] = elemento;
+        } while (elemento != -999);
+        int busca = Integer.parseInt(JOptionPane.showInputDialog("Digite o valor a ser buscado"));
+        int posicao = buscaBinaria(vetor, 0, fim - 1, busca);
+        if (posicao == -1) {
+            JOptionPane.showMessageDialog(null, "Elemento não encontrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Elemento encontrado na posição " + posicao);
+        }
     }
 
-    /**
-     * Calcula o maior elemento do vetor
-     * @param vetor vetor com os valores
-     * @param n quantidade de elementos do vetor
-     * @return o maior elemento do vetor
-     */
-    private static int maior(int[] vetor, int n) {
-        if (n == 0) {
-            return vetor[0];
-        } else {
-            int m = maior(vetor, n - 1);
-            if (m > vetor[n]) {
-                return m;
+    public static int buscaBinaria(int[] vetor, int inicio, int fim, int k) {
+        int centro;
+        while (inicio <= fim) {
+            centro = inicio + (fim - inicio) / 2;
+            if (k == vetor[centro]) {
+                return centro;
+            } else if (k > vetor[centro]) {
+                return buscaBinaria(vetor, centro + 1, fim, k);
             } else {
-                return vetor[n];
+                return buscaBinaria(vetor, inicio, centro - 1, k);
             }
         }
+        return -1;
     }
 }

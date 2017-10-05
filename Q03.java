@@ -1,33 +1,35 @@
-/*
-Construir um algoritmo para imprimir a série de FIBONACCI até o n° termo. 
-O termo deve ser passado pelo usuário.
-*/
-package POTA01;
+package POTA03;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Q03 {
 
     public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Quantos termos deseja imprimir da Sequência de Fibonacci?");
-        int termos = entrada.nextInt();
-        for (int i = 0; i < termos; i++) {
-            System.out.print(fibonacci(i) + "\t");
+        int n = Integer.parseInt(JOptionPane.showInputDialog("Quantos elementos no máximo terá o vetor?"));
+        int vetor[] = new int[n];
+        int fim = -1;
+        int elemento;
+        do {
+            elemento = Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+            fim++;
+            vetor[fim] = elemento;
+        } while (elemento != -999);
+        int busca = Integer.parseInt(JOptionPane.showInputDialog("Digite o valor a ser buscado"));
+        int posicao = buscaSequencial(vetor, fim, busca);
+        if (posicao == -1) {
+            JOptionPane.showMessageDialog(null, "Elemento não encontrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Elemento encontrado na posição " + posicao);
         }
-        System.out.println();
     }
 
-    /**
-     * Calcula Fibonacci de um determinado termo
-     * @param n número do termo
-     * @return valor de Fibonacci naquele termo
-     */
-    private static long fibonacci(int n) {
-        if (n < 2) {
-            return n;
+    public static int buscaSequencial(int[] vetor, int n, int k) {
+        if (n <= 0) {
+            return -1;
+        } else if (vetor[n - 1] == k) {
+            return n - 1;
         } else {
-            return fibonacci(n - 1) + fibonacci(n - 2);
+            return buscaSequencial(vetor, n - 1, k);
         }
     }
 }
